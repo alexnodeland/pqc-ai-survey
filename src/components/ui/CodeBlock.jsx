@@ -16,7 +16,7 @@ export const CodeBlock = ({ code, language = 'typescript', title }) => {
         </div>
       )}
       <div className="p-4 overflow-x-auto">
-        <pre className="text-sm font-mono text-slate-300 leading-relaxed">
+        <pre className="text-sm font-mono text-slate-300 leading-relaxed min-w-0">
           {isExpanded ? code.trim() : previewLines.join('\n')}
           {!isExpanded && hasMore && (
             <span className="text-slate-600">...</span>

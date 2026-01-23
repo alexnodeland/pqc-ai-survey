@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useCases } from './data';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
@@ -15,6 +15,13 @@ const PQCSecurityDashboard = () => {
     high: true,
     plan: false
   });
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    document.body.style.overflow = isMobileMenuOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [isMobileMenuOpen]);
 
   // Derived state
   const selectedCase = useCases[selectedUseCase];
@@ -25,18 +32,23 @@ const PQCSecurityDashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0f1a] text-white">
-      <Header />
+    <div className="min-h-screen bg-[#0a0f1a] text-white overflow-x-hidden">
+      <Header
+          isMobileMenuOpen={isMobileMenuOpen}
+          setIsMobileMenuOpen={setIsMobileMenuOpen}
+        />
       <QuantumTimeline />
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-6 py-8">
-        <div className="grid lg:grid-cols-12 gap-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 sm:py-8">
+        <div className="grid lg:grid-cols-12 gap-4 sm:gap-6 lg:gap-8">
           <Sidebar
             selectedUseCase={selectedUseCase}
             setSelectedUseCase={setSelectedUseCase}
             expandedCategories={expandedCategories}
             toggleCategory={toggleCategory}
+            isMobileMenuOpen={isMobileMenuOpen}
+            setIsMobileMenuOpen={setIsMobileMenuOpen}
           />
           <DetailPanel
             selectedCase={selectedCase}

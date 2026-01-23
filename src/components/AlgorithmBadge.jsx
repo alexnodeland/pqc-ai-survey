@@ -1,28 +1,64 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { ExternalLink } from 'lucide-react';
 import { algorithms } from '../data';
 
 export const AlgorithmBadge = ({ algorithm, showDetail = true }) => {
-  const [isHovered, setIsHovered] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
+  const containerRef = useRef(null);
+
+  // Detect touch device
+  useEffect(() => {
+    setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
+  }, []);
+
+  // Close on outside tap for touch devices
+  useEffect(() => {
+    if (!isOpen || !isTouchDevice) return;
+
+    const handleOutside = (e) => {
+      if (containerRef.current && !containerRef.current.contains(e.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('touchstart', handleOutside);
+    document.addEventListener('click', handleOutside);
+
+    return () => {
+      document.removeEventListener('touchstart', handleOutside);
+      document.removeEventListener('click', handleOutside);
+    };
+  }, [isOpen, isTouchDevice]);
 
   const alg = algorithms[algorithm];
   if (!alg) return null;
 
   const Icon = alg.icon;
 
+  const handleClick = (e) => {
+    if (isTouchDevice) {
+      e.preventDefault();
+      e.stopPropagation();
+      setIsOpen(prev => !prev);
+    }
+  };
+
   return (
     <div
+      ref={containerRef}
       className="relative inline-block"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onMouseEnter={() => !isTouchDevice && setIsOpen(true)}
+      onMouseLeave={() => !isTouchDevice && setIsOpen(false)}
+      onClick={handleClick}
     >
-      <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-${alg.color}-950/50 border border-${alg.color}-800/30 text-${alg.color}-300 text-sm cursor-help transition-all ${isHovered ? 'ring-1 ring-' + alg.color + '-500/50 bg-' + alg.color + '-950/70' : ''}`}>
+      <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-${alg.color}-950/50 border border-${alg.color}-800/30 text-${alg.color}-300 text-sm cursor-help transition-all ${isOpen ? 'ring-1 ring-' + alg.color + '-500/50 bg-' + alg.color + '-950/70' : ''}`}>
         <Icon className="w-3.5 h-3.5" />
         {alg.aka}
       </span>
 
-      {isHovered && showDetail && (
-        <div className={`absolute top-full left-0 pt-2 z-50 min-w-[280px]`}>
+      {isOpen && showDetail && (
+        <div className={`absolute top-full left-0 sm:left-auto sm:right-0 lg:left-0 lg:right-auto pt-2 z-50 min-w-[280px] max-w-[calc(100vw-2rem)]`}>
           <div className={`p-4 bg-slate-800 border border-${alg.color}-800/50 rounded-xl shadow-2xl`}>
             <div className="flex items-center gap-2 mb-2">
               <span className={`text-${alg.color}-400 font-semibold`}>{alg.name}</span>
@@ -47,6 +83,7 @@ export const AlgorithmBadge = ({ algorithm, showDetail = true }) => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-1 text-xs text-sky-400 hover:text-sky-300 transition-colors"
+                onClick={(e) => e.stopPropagation()}
               >
                 <ExternalLink className="w-3 h-3" />
                 {alg.standard}

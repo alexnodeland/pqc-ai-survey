@@ -1,21 +1,58 @@
 import React from 'react';
-import { Check, AlertTriangle, ChevronDown } from 'lucide-react';
+import { Check, AlertTriangle, ChevronDown, X } from 'lucide-react';
 import { urgencyCategories, useCases } from '../data';
 
 export const Sidebar = ({
   selectedUseCase,
   setSelectedUseCase,
   expandedCategories,
-  toggleCategory
+  toggleCategory,
+  isMobileMenuOpen,
+  setIsMobileMenuOpen
 }) => {
+  // Close menu when a use case is selected on mobile
+  const handleUseCaseSelect = (id) => {
+    setSelectedUseCase(id);
+    if (setIsMobileMenuOpen) {
+      setIsMobileMenuOpen(false);
+    }
+  };
+
   return (
-    <aside className="lg:col-span-4 xl:col-span-3">
-      <div className="sticky top-6 space-y-4">
-        {/* Section Header */}
-        <div>
-          <h2 className="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-2">AI Security Use Cases</h2>
-          <p className="text-xs text-slate-500">Prioritized by threat urgency and compliance deadlines.</p>
-        </div>
+    <>
+      {/* Mobile overlay backdrop */}
+      {isMobileMenuOpen && (
+        <div
+          className="lg:hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-40"
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+      )}
+
+      {/* Sidebar */}
+      <aside className={`
+        lg:col-span-4 xl:col-span-3
+        fixed lg:relative inset-y-0 left-0
+        w-80 max-w-[85vw] lg:w-auto lg:max-w-none bg-[#0a0f1a] lg:bg-transparent
+        border-r border-slate-800/50 lg:border-0
+        transform transition-transform duration-300 ease-out
+        ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
+        z-50 lg:z-0 overflow-y-auto
+      `}>
+        <div className="sticky top-0 lg:top-6 space-y-4 p-4 lg:p-0">
+          {/* Mobile close button */}
+          <button
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="lg:hidden absolute top-4 right-4 p-2 text-slate-400 hover:text-white transition-colors"
+            aria-label="Close menu"
+          >
+            <X className="w-5 h-5" />
+          </button>
+
+          {/* Section Header */}
+          <div className="pt-8 lg:pt-0">
+            <h2 className="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-2">AI Security Use Cases</h2>
+            <p className="text-xs text-slate-500">Prioritized by threat urgency and compliance deadlines.</p>
+          </div>
 
         {/* Risk-Based Categories */}
         {urgencyCategories.map(category => {
@@ -68,7 +105,7 @@ export const Sidebar = ({
                     return (
                       <button
                         key={uc.id}
-                        onClick={() => setSelectedUseCase(uc.id)}
+                        onClick={() => handleUseCaseSelect(uc.id)}
                         className={`
                           w-full text-left p-2.5 rounded-lg transition-all duration-200 group
                           ${isSelected
@@ -121,7 +158,8 @@ export const Sidebar = ({
             </div>
           </div>
         </div>
-      </div>
-    </aside>
+        </div>
+      </aside>
+    </>
   );
 };

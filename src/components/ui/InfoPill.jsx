@@ -14,7 +14,7 @@ export const InfoPill = ({ label, value, detail, color = 'slate' }) => {
         <div className={`text-sm font-mono text-${color}-300`}>{value}</div>
       </div>
       {showDetail && detail && (
-        <div className="absolute top-full left-0 mt-2 p-3 bg-slate-800 border border-slate-700 rounded-lg shadow-xl z-20 min-w-[200px] max-w-[300px]">
+        <div className="absolute top-full left-0 mt-2 p-3 bg-slate-800 border border-slate-700 rounded-lg shadow-xl z-20 w-48 sm:w-56 max-w-[calc(100vw-2rem)]">
           <p className="text-xs text-slate-400 leading-relaxed">{detail}</p>
         </div>
       )}
