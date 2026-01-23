@@ -1,5 +1,5 @@
 import {
-  EyeOff, Shield, BarChart3, Code, Workflow, Globe,
+  EyeOff, Shield, BarChart3, Code, Workflow, Globe, BookOpen,
   AlertTriangle, Clock, TrendingUp
 } from 'lucide-react';
 
@@ -9,7 +9,8 @@ export const tabs = [
   { id: 'performance', label: 'Performance', icon: BarChart3, color: 'sky' },
   { id: 'code', label: 'Code', icon: Code, color: 'violet' },
   { id: 'diagram', label: 'Flow', icon: Workflow, color: 'cyan' },
-  { id: 'context', label: 'Context', icon: Globe, color: 'slate' }
+  { id: 'context', label: 'Context', icon: Globe, color: 'slate' },
+  { id: 'references', label: 'References', icon: BookOpen, color: 'indigo' }
 ];
 
 export const urgencyCategories = [

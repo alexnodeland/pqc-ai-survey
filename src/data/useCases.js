@@ -80,10 +80,17 @@ app.use((req, res, next) => {
     },
 
     realWorld: {
-      adopters: ['Cloudflare (2023)', 'Google Chrome (experimental)', 'AWS KMS'],
-      standards: ['IETF draft-ietf-tls-hybrid-design', 'NIST SP 800-56C Rev 2'],
+      adopters: [
+        { label: 'Cloudflare (2023)', url: 'https://blog.cloudflare.com/post-quantum-to-origins/' },
+        { label: 'Google Chrome (experimental)', url: 'https://chromestatus.com/feature/5257822742249472' },
+        { label: 'AWS KMS', url: 'https://docs.aws.amazon.com/kms/latest/developerguide/pqtls.html' }
+      ],
+      standards: [
+        { label: 'IETF draft-ietf-tls-hybrid-design', url: 'https://datatracker.ietf.org/doc/draft-ietf-tls-hybrid-design/' },
+        { label: 'NIST SP 800-56C Rev 2', url: 'https://csrc.nist.gov/pubs/sp/800/56/c/r2/final' }
+      ],
       quote: 'We\'ve enabled post-quantum key exchange for all traffic to our edge network.',
-      quoteSource: 'Cloudflare Blog, 2023'
+      quoteSource: { label: 'Cloudflare Blog, 2023', url: 'https://blog.cloudflare.com/post-quantum-to-origins/' }
     }
   },
 
@@ -190,10 +197,17 @@ class ModelRegistry {
     },
 
     realWorld: {
-      adopters: ['Hugging Face (evaluating)', 'MLflow (roadmap)', 'NVIDIA NGC'],
-      standards: ['SLSA Framework', 'Sigstore/cosign patterns'],
+      adopters: [
+        { label: 'Hugging Face (evaluating)', url: 'https://huggingface.co/docs/hub/en/security' },
+        { label: 'MLflow (roadmap)', url: 'https://mlflow.org/docs/latest/model-registry.html' },
+        { label: 'NVIDIA NGC', url: 'https://catalog.ngc.nvidia.com/' }
+      ],
+      standards: [
+        { label: 'SLSA Framework', url: 'https://slsa.dev/' },
+        { label: 'Sigstore/cosign patterns', url: 'https://github.com/sigstore/cosign' }
+      ],
       quote: 'Model provenance and signing will be required for regulated AI deployments.',
-      quoteSource: 'EU AI Act compliance guidance'
+      quoteSource: { label: 'EU AI Act compliance guidance', url: 'https://artificialintelligenceact.eu/' }
     }
   },
 
@@ -310,10 +324,17 @@ class SecureAggregator:
     },
 
     realWorld: {
-      adopters: ['Google (Gboard FL)', 'Apple (on-device learning)', 'Healthcare consortiums'],
-      standards: ['Secure Aggregation protocols', 'Differential Privacy composition'],
+      adopters: [
+        { label: 'Google (Gboard FL)', url: 'https://research.google/blog/federated-learning-collaborative-machine-learning-without-centralized-training-data/' },
+        { label: 'Apple (on-device learning)', url: 'https://machinelearning.apple.com/research/learning-with-privacy-at-scale' },
+        { label: 'Healthcare consortiums' }
+      ],
+      standards: [
+        { label: 'Secure Aggregation protocols', url: 'https://research.google/pubs/practical-secure-aggregation-for-privacy-preserving-machine-learning/' },
+        { label: 'Differential Privacy composition', url: 'https://www.apple.com/privacy/docs/Differential_Privacy_Overview.pdf' }
+      ],
       quote: 'Cryptographic authentication is essential for production federated learning.',
-      quoteSource: 'Google AI Blog on Federated Learning'
+      quoteSource: { label: 'Google AI Blog on Federated Learning', url: 'https://research.google/blog/federated-learning-collaborative-machine-learning-without-centralized-training-data/' }
     }
   },
 
@@ -439,10 +460,16 @@ class SecureAggregator:
     },
 
     realWorld: {
-      adopters: ['Major labs implementing for litigation defense', 'Healthcare AI (HIPAA)'],
-      standards: ['Data provenance frameworks', 'GDPR Article 30 records'],
+      adopters: [
+        { label: 'Major labs implementing for litigation defense' },
+        { label: 'Healthcare AI (HIPAA)', url: 'https://www.hhs.gov/hipaa/index.html' }
+      ],
+      standards: [
+        { label: 'Data provenance frameworks', url: 'https://slsa.dev/' },
+        { label: 'GDPR Article 30 records', url: 'https://gdpr-info.eu/art-30-gdpr/' }
+      ],
       quote: 'Cryptographic chain of custody will become standard practice for training data.',
-      quoteSource: 'AI legal compliance recommendations'
+      quoteSource: { label: 'AI legal compliance recommendations' }
     }
   },
 
@@ -581,10 +608,16 @@ class SecureAggregator:
     },
 
     realWorld: {
-      adopters: ['Internal practices at major labs', 'Enterprise ML platforms'],
-      standards: ['Defense-in-depth security', 'Key rotation best practices'],
+      adopters: [
+        { label: 'Internal practices at major labs' },
+        { label: 'Enterprise ML platforms' }
+      ],
+      standards: [
+        { label: 'Defense-in-depth security' },
+        { label: 'Key rotation best practices', url: 'https://csrc.nist.gov/pubs/sp/800/57/pt1/r5/final' }
+      ],
       quote: 'After the Llama leak, everyone is taking checkpoint security more seriously.',
-      quoteSource: 'ML infrastructure engineer'
+      quoteSource: { label: 'ML infrastructure engineer' }
     }
   },
 
@@ -728,10 +761,17 @@ class SecureBlockManager(BlockManager):
     },
 
     realWorld: {
-      adopters: ['Research prototypes', 'High-security inference deployments'],
-      standards: ['Confidential computing frameworks', 'Intel TDX, AMD SEV'],
+      adopters: [
+        { label: 'Research prototypes' },
+        { label: 'High-security inference deployments' }
+      ],
+      standards: [
+        { label: 'Confidential computing frameworks', url: 'https://confidentialcomputing.io/' },
+        { label: 'Intel TDX', url: 'https://www.intel.com/content/www/us/en/developer/tools/trust-domain-extensions/overview.html' },
+        { label: 'AMD SEV', url: 'https://www.amd.com/en/developer/sev.html' }
+      ],
       quote: 'KV cache isolation is the next frontier in multi-tenant inference security.',
-      quoteSource: 'MLsys security research'
+      quoteSource: { label: 'MLsys security research' }
     }
   },
 
@@ -853,10 +893,17 @@ class SecureSlowAllReduce:
     },
 
     realWorld: {
-      adopters: ['NVIDIA Magnum IO', 'AWS Nitro Enclaves', 'Azure Confidential Computing'],
-      standards: ['IPsec with hardware offload', 'RDMA security extensions'],
+      adopters: [
+        { label: 'NVIDIA Magnum IO', url: 'https://developer.nvidia.com/magnum-io' },
+        { label: 'AWS Nitro Enclaves', url: 'https://aws.amazon.com/ec2/nitro/nitro-enclaves/' },
+        { label: 'Azure Confidential Computing', url: 'https://azure.microsoft.com/en-us/solutions/confidential-compute' }
+      ],
+      standards: [
+        { label: 'IPsec with hardware offload', url: 'https://docs.nvidia.com/networking/display/mlnxofedv24010331/ipsec+full+offload' },
+        { label: 'RDMA security extensions' }
+      ],
       quote: 'Most production training relies on network isolation rather than encryption.',
-      quoteSource: 'Distributed training infrastructure team'
+      quoteSource: { label: 'Distributed training infrastructure team' }
     }
   },
 
@@ -1022,10 +1069,16 @@ class SecurePosteriorManager:
     },
 
     realWorld: {
-      adopters: ['Pharmaceutical companies (clinical trial models)', 'Financial risk modeling'],
-      standards: ['Differential privacy for Bayesian release', 'HIPAA audit requirements'],
+      adopters: [
+        { label: 'Pharmaceutical companies (clinical trial models)' },
+        { label: 'Financial risk modeling' }
+      ],
+      standards: [
+        { label: 'Differential privacy for Bayesian release', url: 'https://www.apple.com/privacy/docs/Differential_Privacy_Overview.pdf' },
+        { label: 'HIPAA audit requirements', url: 'https://www.hhs.gov/hipaa/index.html' }
+      ],
       quote: 'Posterior samples require stricter protection than point predictions.',
-      quoteSource: 'Bayesian privacy research'
+      quoteSource: { label: 'Bayesian privacy research' }
     }
   },
 
@@ -1160,10 +1213,17 @@ class SecureVectorStore {
     },
 
     realWorld: {
-      adopters: ['IronCore Labs (Cloaked AI)', 'Healthcare RAG systems', 'Legal document retrieval'],
-      standards: ['HIPAA for PHI in embeddings', 'SOC 2 Type II'],
+      adopters: [
+        { label: 'IronCore Labs (Cloaked AI)', url: 'https://ironcorelabs.com/products/cloaked-ai/' },
+        { label: 'Healthcare RAG systems' },
+        { label: 'Legal document retrieval' }
+      ],
+      standards: [
+        { label: 'HIPAA for PHI in embeddings', url: 'https://www.hhs.gov/hipaa/index.html' },
+        { label: 'SOC 2 Type II', url: 'https://www.aicpa-cima.com/topic/audit-assurance/audit-and-assurance-greater-than-soc-2' }
+      ],
       quote: 'Vector embeddings are an underprotected gold mine for attackers.',
-      quoteSource: 'IronCore Labs Security Research'
+      quoteSource: { label: 'IronCore Labs Security Research', url: 'https://ironcorelabs.com/products/cloaked-ai/' }
     }
   },
 
@@ -1316,10 +1376,17 @@ class PQCAPIClient {
     },
 
     realWorld: {
-      adopters: ['Enterprise API gateways', 'Financial services', 'Healthcare platforms'],
-      standards: ['OAuth 2.0 DPoP extension patterns', 'FIDO2/WebAuthn principles'],
+      adopters: [
+        { label: 'Enterprise API gateways' },
+        { label: 'Financial services' },
+        { label: 'Healthcare platforms' }
+      ],
+      standards: [
+        { label: 'OAuth 2.0 DPoP extension patterns', url: 'https://datatracker.ietf.org/doc/html/rfc9449' },
+        { label: 'FIDO2/WebAuthn principles', url: 'https://www.w3.org/TR/webauthn-2/' }
+      ],
       quote: 'Short-lived credentials with cryptographic binding are the future of API security.',
-      quoteSource: 'NIST Digital Identity Guidelines'
+      quoteSource: { label: 'NIST Digital Identity Guidelines', url: 'https://pages.nist.gov/800-63-3/' }
     }
   }
 };

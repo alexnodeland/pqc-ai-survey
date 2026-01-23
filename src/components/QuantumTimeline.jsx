@@ -96,29 +96,31 @@ export const QuantumTimeline = () => {
                   <div className="text-[10px] text-slate-500">{milestone.sublabel}</div>
                 </div>
 
-                {/* Hover tooltip */}
+                {/* Hover tooltip - pt-6 creates visual gap while maintaining hover area */}
                 {hoveredMilestone === idx && (
-                  <div className="absolute top-full mt-8 z-20 w-64 p-4 bg-slate-800 border border-slate-700 rounded-xl shadow-2xl">
-                    <div className="flex items-center gap-2 mb-2">
-                      <span className={`text-lg font-bold text-${milestone.color}-400`}>{milestone.year}</span>
-                      {milestone.isCurrent && (
-                        <span className="px-2 py-0.5 text-[10px] font-semibold bg-red-500/20 text-red-400 rounded-full">NOW</span>
+                  <div className="absolute top-full z-20 w-64 pt-6">
+                    <div className="p-4 bg-slate-800 border border-slate-700 rounded-xl shadow-2xl">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className={`text-lg font-bold text-${milestone.color}-400`}>{milestone.year}</span>
+                        {milestone.isCurrent && (
+                          <span className="px-2 py-0.5 text-[10px] font-semibold bg-red-500/20 text-red-400 rounded-full">NOW</span>
+                        )}
+                      </div>
+                      <p className="text-xs text-slate-400 leading-relaxed mb-3">{milestone.description}</p>
+                      {milestone.link && (
+                        <a
+                          href={milestone.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-1 text-xs text-sky-400 hover:text-sky-300"
+                        >
+                          <ExternalLink className="w-3 h-3" />
+                          View source
+                        </a>
                       )}
+                      {/* Arrow */}
+                      <div className="absolute top-4 left-1/2 -translate-x-1/2 w-4 h-4 bg-slate-800 border-l border-t border-slate-700 rotate-45" />
                     </div>
-                    <p className="text-xs text-slate-400 leading-relaxed mb-3">{milestone.description}</p>
-                    {milestone.link && (
-                      <a
-                        href={milestone.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-1 text-xs text-sky-400 hover:text-sky-300"
-                      >
-                        <ExternalLink className="w-3 h-3" />
-                        View source
-                      </a>
-                    )}
-                    {/* Arrow */}
-                    <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-slate-800 border-l border-t border-slate-700 rotate-45" />
                   </div>
                 )}
               </div>

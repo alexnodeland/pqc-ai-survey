@@ -1,7 +1,7 @@
 import React from 'react';
-import { ArrowRight, AlertCircle } from 'lucide-react';
+import { ArrowRight, AlertCircle, ExternalLink } from 'lucide-react';
 import { AlgorithmBadge } from './AlgorithmBadge';
-import { InfoPill, CodeBlock } from './ui';
+import { InfoPill, CodeBlock, ReferenceLink, ReferenceList } from './ui';
 import { tabs, flowDiagrams } from '../data';
 
 export const DetailPanel = ({ selectedCase, activeTab, setActiveTab }) => {
@@ -13,7 +13,7 @@ export const DetailPanel = ({ selectedCase, activeTab, setActiveTab }) => {
     <main className="lg:col-span-8 xl:col-span-9">
       <div className="space-y-6">
         {/* Hero Section */}
-        <div className={`bg-gradient-to-br from-${selectedCase.color}-950/30 via-slate-900/50 to-slate-900/30 rounded-2xl border border-${selectedCase.color}-500/20 overflow-hidden`}>
+        <div className={`bg-gradient-to-br from-${selectedCase.color}-950/30 via-slate-900/50 to-slate-900/30 rounded-2xl border border-${selectedCase.color}-500/20`}>
           <div className="p-6">
             <div className="flex items-start justify-between mb-4">
               <div className="flex items-center gap-4">
@@ -325,6 +325,115 @@ export const DetailPanel = ({ selectedCase, activeTab, setActiveTab }) => {
             </div>
           )}
 
+          {/* References Tab */}
+          {activeTab === 'references' && (
+            <div>
+              <div className="p-6 border-b border-slate-800/50 bg-indigo-950/10">
+                <h2 className="text-lg font-semibold text-white">References & Sources</h2>
+                <p className="text-sm text-slate-400 mt-1">All citations for this use case</p>
+              </div>
+              <div className="p-6 space-y-6">
+                {/* Standards */}
+                <div>
+                  <h3 className="text-sm font-semibold text-slate-300 mb-3 flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-indigo-500"></span>
+                    Standards & Specifications
+                  </h3>
+                  <ReferenceList references={selectedCase.realWorld.standards} variant="card" />
+                </div>
+
+                {/* Early Adopters */}
+                <div>
+                  <h3 className="text-sm font-semibold text-slate-300 mb-3 flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+                    Industry Adopters
+                  </h3>
+                  <ReferenceList references={selectedCase.realWorld.adopters} variant="card" />
+                </div>
+
+                {/* Quote Source */}
+                {selectedCase.realWorld.quoteSource && (
+                  <div>
+                    <h3 className="text-sm font-semibold text-slate-300 mb-3 flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-sky-500"></span>
+                      Quote Source
+                    </h3>
+                    <ReferenceLink
+                      reference={selectedCase.realWorld.quoteSource}
+                      variant="card"
+                    />
+                  </div>
+                )}
+
+                {/* Algorithm References */}
+                <div>
+                  <h3 className="text-sm font-semibold text-slate-300 mb-3 flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-violet-500"></span>
+                    Algorithm Standards
+                  </h3>
+                  <div className="space-y-2">
+                    {selectedCase.solution.algorithms.includes('kyber') && (
+                      <ReferenceLink
+                        reference={{
+                          label: 'NIST FIPS 203 (ML-KEM / Kyber)',
+                          url: 'https://csrc.nist.gov/pubs/fips/203/final',
+                          description: 'Module-Lattice-Based Key-Encapsulation Mechanism Standard'
+                        }}
+                        variant="card"
+                      />
+                    )}
+                    {selectedCase.solution.algorithms.includes('dilithium') && (
+                      <ReferenceLink
+                        reference={{
+                          label: 'NIST FIPS 204 (ML-DSA / Dilithium)',
+                          url: 'https://csrc.nist.gov/pubs/fips/204/final',
+                          description: 'Module-Lattice-Based Digital Signature Standard'
+                        }}
+                        variant="card"
+                      />
+                    )}
+                    {selectedCase.solution.algorithms.includes('sphincs') && (
+                      <ReferenceLink
+                        reference={{
+                          label: 'NIST FIPS 205 (SLH-DSA / SPHINCS+)',
+                          url: 'https://csrc.nist.gov/pubs/fips/205/final',
+                          description: 'Stateless Hash-Based Digital Signature Standard'
+                        }}
+                        variant="card"
+                      />
+                    )}
+                  </div>
+                </div>
+
+                {/* General Resources */}
+                <div>
+                  <h3 className="text-sm font-semibold text-slate-300 mb-3 flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-slate-500"></span>
+                    General Resources
+                  </h3>
+                  <div className="space-y-2">
+                    <ReferenceLink
+                      reference={{
+                        label: 'NIST Post-Quantum Cryptography',
+                        url: 'https://www.nist.gov/pqcrypto',
+                        description: 'NIST PQC Standardization Project'
+                      }}
+                      variant="card"
+                    />
+                    <ReferenceLink
+                      reference={{
+                        label: 'CRYSTALS Project (pq-crystals.org)',
+                        url: 'https://pq-crystals.org/',
+                        description: 'Kyber and Dilithium reference implementations'
+                      }}
+                      variant="card"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* Context Tab */}
           {activeTab === 'context' && (
             <div>
@@ -336,30 +445,32 @@ export const DetailPanel = ({ selectedCase, activeTab, setActiveTab }) => {
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <h3 className="text-sm font-semibold text-slate-300 mb-3">Early Adopters</h3>
-                    <div className="flex flex-wrap gap-2">
-                      {selectedCase.realWorld.adopters.map((adopter, i) => (
-                        <span key={i} className="px-3 py-1.5 bg-slate-800/50 rounded-lg text-sm text-slate-300 border border-slate-700/50">
-                          {adopter}
-                        </span>
-                      ))}
-                    </div>
+                    <ReferenceList references={selectedCase.realWorld.adopters} variant="pill" />
                   </div>
                   <div>
                     <h3 className="text-sm font-semibold text-slate-300 mb-3">Relevant Standards</h3>
-                    <div className="flex flex-wrap gap-2">
-                      {selectedCase.realWorld.standards.map((std, i) => (
-                        <span key={i} className="px-3 py-1.5 bg-slate-800/50 rounded-lg text-sm text-slate-400 border border-slate-700/50">
-                          {std}
-                        </span>
-                      ))}
-                    </div>
+                    <ReferenceList references={selectedCase.realWorld.standards} variant="pill" />
                   </div>
                 </div>
 
                 {/* Quote */}
                 <div className="mt-6 p-4 bg-slate-800/30 rounded-xl border-l-2 border-slate-600">
                   <p className="text-slate-300 italic mb-2">"{selectedCase.realWorld.quote}"</p>
-                  <p className="text-sm text-slate-500">— {selectedCase.realWorld.quoteSource}</p>
+                  <p className="text-sm text-slate-500 flex items-center gap-1">
+                    — {selectedCase.realWorld.quoteSource?.url ? (
+                      <a
+                        href={selectedCase.realWorld.quoteSource.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-slate-400 hover:text-sky-400 transition-colors inline-flex items-center gap-1"
+                      >
+                        {selectedCase.realWorld.quoteSource.label}
+                        <ExternalLink className="w-3 h-3 opacity-50" />
+                      </a>
+                    ) : (
+                      <span>{selectedCase.realWorld.quoteSource?.label || selectedCase.realWorld.quoteSource}</span>
+                    )}
+                  </p>
                 </div>
               </div>
             </div>
