@@ -4,10 +4,10 @@ import { Clock, AlertTriangle, ExternalLink } from 'lucide-react';
 
 const milestones = [
   {
-    year: 2024,
-    label: 'TODAY',
+    year: 2026,
+    label: 'NOW',
     sublabel: 'Harvest Active',
-    description: 'Adversaries are capturing encrypted traffic now, planning to decrypt it when quantum computers mature.',
+    description: 'Adversaries continue capturing encrypted traffic for future quantum decryption. Migration is underway.',
     color: 'red',
     isCurrent: true,
     link: null
@@ -16,7 +16,7 @@ const milestones = [
     year: 2027,
     label: 'HQC Final',
     sublabel: '4th KEM Standard',
-    description: 'NIST will finalize HQC as a backup key encapsulation mechanism, providing algorithm diversity.',
+    description: 'NIST finalizes HQC as a backup key encapsulation mechanism, providing algorithm diversity.',
     color: 'sky',
     isCurrent: false,
     link: 'https://csrc.nist.gov/projects/post-quantum-cryptography'
@@ -25,7 +25,7 @@ const milestones = [
     year: 2030,
     label: 'CNSA 2.0',
     sublabel: 'Soft Deadline',
-    description: 'NSA requires all National Security Systems to begin PQC migration. Commercial adoption expected.',
+    description: 'NSA requires National Security Systems to begin PQC migration. Commercial adoption accelerates.',
     color: 'amber',
     isCurrent: false,
     link: 'https://media.defense.gov/2022/Sep/07/2003071834/-1/-1/0/CSA_CNSA_2.0_ALGORITHMS_.PDF'
@@ -34,7 +34,7 @@ const milestones = [
     year: 2035,
     label: 'Full PQC',
     sublabel: 'Hard Deadline',
-    description: 'NSA mandates complete PQC adoption. Classical-only cryptography will be non-compliant.',
+    description: 'NSA mandates complete PQC adoption. Classical-only cryptography becomes non-compliant.',
     color: 'emerald',
     isCurrent: false,
     link: 'https://media.defense.gov/2022/Sep/07/2003071834/-1/-1/0/CSA_CNSA_2.0_ALGORITHMS_.PDF'

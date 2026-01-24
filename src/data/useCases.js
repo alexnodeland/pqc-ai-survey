@@ -15,12 +15,12 @@ export const useCases = {
 
     threat: {
       title: 'API Traffic Interception',
-      summary: 'Adversaries capture encrypted API traffic today, planning to decrypt it when quantum computers mature.',
+      summary: 'Adversaries capture encrypted API traffic today for future quantum decryption.',
       details: [
         'Prompts contain sensitive business logic, PII, and proprietary reasoning chains',
         'Responses may include confidential analysis, code, or recommendations',
-        '"Harvest now, decrypt later" makes all current traffic vulnerable',
-        'API logs archived for compliance become future attack targets'
+        'Traffic captured now becomes vulnerable once quantum decryption matures',
+        'Archived API logs create long-term exposure windows'
       ],
       impact: 'High',
       timeline: 'Active threat (data being collected now)'
@@ -81,16 +81,16 @@ app.use((req, res, next) => {
 
     realWorld: {
       adopters: [
-        { label: 'Cloudflare (2023)', url: 'https://blog.cloudflare.com/post-quantum-to-origins/' },
-        { label: 'Google Chrome (experimental)', url: 'https://chromestatus.com/feature/5257822742249472' },
+        { label: 'Cloudflare', url: 'https://blog.cloudflare.com/post-quantum-to-origins/' },
+        { label: 'Google Chrome', url: 'https://chromestatus.com/feature/5257822742249472' },
         { label: 'AWS KMS', url: 'https://docs.aws.amazon.com/kms/latest/developerguide/pqtls.html' }
       ],
       standards: [
-        { label: 'IETF draft-ietf-tls-hybrid-design', url: 'https://datatracker.ietf.org/doc/draft-ietf-tls-hybrid-design/' },
+        { label: 'IETF Hybrid TLS Design', url: 'https://datatracker.ietf.org/doc/draft-ietf-tls-hybrid-design/' },
         { label: 'NIST SP 800-56C Rev 2', url: 'https://csrc.nist.gov/pubs/sp/800/56/c/r2/final' }
       ],
       quote: 'We\'ve enabled post-quantum key exchange for all traffic to our edge network.',
-      quoteSource: { label: 'Cloudflare Blog, 2023', url: 'https://blog.cloudflare.com/post-quantum-to-origins/' }
+      quoteSource: { label: 'Cloudflare Blog', url: 'https://blog.cloudflare.com/post-quantum-to-origins/' }
     }
   },
 
@@ -198,13 +198,13 @@ class ModelRegistry {
 
     realWorld: {
       adopters: [
-        { label: 'Hugging Face (evaluating)', url: 'https://huggingface.co/docs/hub/en/security' },
-        { label: 'MLflow (roadmap)', url: 'https://mlflow.org/docs/latest/model-registry.html' },
+        { label: 'Hugging Face', url: 'https://huggingface.co/docs/hub/en/security' },
+        { label: 'MLflow', url: 'https://mlflow.org/docs/latest/model-registry.html' },
         { label: 'NVIDIA NGC', url: 'https://catalog.ngc.nvidia.com/' }
       ],
       standards: [
         { label: 'SLSA Framework', url: 'https://slsa.dev/' },
-        { label: 'Sigstore/cosign patterns', url: 'https://github.com/sigstore/cosign' }
+        { label: 'Sigstore/cosign', url: 'https://github.com/sigstore/cosign' }
       ],
       quote: 'Model provenance and signing will be required for regulated AI deployments.',
       quoteSource: { label: 'EU AI Act compliance guidance', url: 'https://artificialintelligenceact.eu/' }
@@ -349,12 +349,12 @@ class SecureAggregator:
 
     threat: {
       title: 'Training Data Exposure',
-      summary: 'Corpus contains licensed content, PII, and proprietary data. Exposure enables lawsuits, privacy violations, and competitive intelligence.',
+      summary: 'Corpus exposure enables lawsuits, privacy violations, and competitive intelligence theft.',
       details: [
-        'Copyright litigation (NYT v. OpenAI) focuses on training data provenance',
-        'Membership inference can determine if specific data was used in training',
+        'Copyright litigation focuses on training data provenance and licensing',
+        'Membership inference reveals whether specific data was used in training',
         'PII in training data creates GDPR/CCPA liability',
-        'Competitors can analyze your data sources to replicate your approach'
+        'Competitors can replicate your approach by analyzing data sources'
       ],
       impact: 'Critical',
       timeline: 'Active litigation and regulatory scrutiny'
@@ -918,12 +918,12 @@ class SecureSlowAllReduce:
 
     threat: {
       title: 'Posterior Sample Leakage',
-      summary: 'MCMC samples encode training data information. Membership inference on traces achieves 70-90% accuracy. Raw traces are far more sensitive than point estimates.',
+      summary: 'MCMC traces enable membership inference with 70-90% accuracy—far more sensitive than point estimates.',
       details: [
         'Posterior samples can be inverted to recover training examples',
         'Full traces reveal model uncertainty and data distribution',
-        'Membership inference: "was this datapoint in training?"',
-        'Regulatory exposure for healthcare/financial Bayesian models'
+        'Membership inference identifies specific datapoints in training sets',
+        'Regulatory exposure for healthcare and financial Bayesian models'
       ],
       impact: 'High',
       timeline: 'Critical for regulated industries using probabilistic models'
@@ -1106,12 +1106,12 @@ class SecurePosteriorManager:
 
     solution: {
       title: 'Encrypted Vector Storage with Kyber',
-      summary: 'Encrypt embeddings at rest with Kyber-wrapped DEKs. Use property-preserving encryption to enable similarity search on encrypted vectors.',
+      summary: 'Encrypt embeddings at rest with Kyber-wrapped keys. Property-preserving encryption enables search on encrypted vectors.',
       approach: [
-        'Encrypt vector embeddings before storage in Pinecone/Weaviate/Qdrant',
-        'Wrap per-index DEKs with Kyber for quantum-resistant key protection',
-        'Use approximate nearest neighbor on encrypted representations',
-        'Implement access control at document and chunk level'
+        'Encrypt vectors before storage in Pinecone/Weaviate/Qdrant',
+        'Wrap per-index DEKs with Kyber for quantum-resistant protection',
+        'Preserve approximate nearest neighbor search capability',
+        'Implement fine-grained access control at document level'
       ],
       algorithms: ['kyber', 'dilithium']
     },
@@ -1238,11 +1238,11 @@ class SecureVectorStore {
 
     threat: {
       title: 'Long-Lived Credential Harvesting',
-      summary: 'API keys for LLM services often have lifetimes of months or years. "Harvest now, decrypt later" makes captured keys vulnerable to future quantum decryption.',
+      summary: 'API keys with months-long validity create extended quantum exposure windows when captured.',
       details: [
-        'OpenAI/Anthropic/cloud API keys typically valid for months',
-        'Keys often embedded in applications, making rotation difficult',
-        'Captured TLS traffic with API keys becomes decryptable post-quantum',
+        'LLM API keys typically remain valid for months without rotation',
+        'Keys embedded in applications resist frequent rotation',
+        'Captured traffic becomes decryptable as quantum computers mature',
         'Single compromised key grants access to entire conversation history'
       ],
       impact: 'High',
