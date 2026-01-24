@@ -1,14 +1,12 @@
 import {
-  EyeOff, Shield, BarChart3, Code, Workflow, Globe,
+  EyeOff, Shield, Wrench, Globe,
   AlertTriangle, Clock, TrendingUp
 } from 'lucide-react';
 
 export const tabs = [
   { id: 'threat', label: 'Threat', icon: EyeOff, color: 'red', neonColor: 'red' },
-  { id: 'solution', label: 'Solution', icon: Shield, color: 'emerald', neonColor: 'green' },
-  { id: 'performance', label: 'Performance', icon: BarChart3, color: 'sky', neonColor: 'cyan' },
-  { id: 'code', label: 'Code', icon: Code, color: 'violet', neonColor: 'magenta' },
-  { id: 'diagram', label: 'Flow', icon: Workflow, color: 'cyan', neonColor: 'cyan' },
+  { id: 'approach', label: 'Approach', icon: Shield, color: 'emerald', neonColor: 'green' },
+  { id: 'implementation', label: 'Implementation', icon: Wrench, color: 'sky', neonColor: 'cyan' },
   { id: 'context', label: 'Context', icon: Globe, color: 'slate', neonColor: 'cyan' }
 ];
 

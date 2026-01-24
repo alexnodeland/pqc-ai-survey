@@ -1,11 +1,27 @@
 import React, { useState } from 'react';
 import { ChevronUp, ChevronDown, Terminal } from 'lucide-react';
+import { Highlight } from 'prism-react-renderer';
+import neonTheme from './neonPrismTheme';
+
+// Map language names to prism language identifiers
+const languageMap = {
+  typescript: 'tsx',
+  javascript: 'jsx',
+  python: 'python',
+  rust: 'rust',
+  go: 'go',
+  cpp: 'cpp',
+  c: 'c',
+};
 
 export const CodeBlock = ({ code, language = 'typescript', title }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const lines = code.trim().split('\n');
   const previewLines = lines.slice(0, 8);
   const hasMore = lines.length > 8;
+
+  const prismLanguage = languageMap[language] || language;
+  const displayCode = isExpanded ? code.trim() : previewLines.join('\n');
 
   return (
     <div className="bg-dark-900 rounded-lg border border-neon-green/20 overflow-hidden shadow-inner-glow">
@@ -19,12 +35,22 @@ export const CodeBlock = ({ code, language = 'typescript', title }) => {
         </div>
       )}
       <div className="p-4 overflow-x-auto">
-        <pre className="text-sm font-mono text-neon-green/90 leading-relaxed min-w-0 tracking-wide">
-          {isExpanded ? code.trim() : previewLines.join('\n')}
-          {!isExpanded && hasMore && (
-            <span className="text-slate-600">...</span>
+        <Highlight theme={neonTheme} code={displayCode} language={prismLanguage}>
+          {({ tokens, getLineProps, getTokenProps }) => (
+            <pre className="text-sm font-mono leading-relaxed min-w-0 tracking-wide">
+              {tokens.map((line, i) => (
+                <div key={i} {...getLineProps({ line })}>
+                  {line.map((token, key) => (
+                    <span key={key} {...getTokenProps({ token })} />
+                  ))}
+                </div>
+              ))}
+              {!isExpanded && hasMore && (
+                <span className="text-slate-600">...</span>
+              )}
+            </pre>
           )}
-        </pre>
+        </Highlight>
       </div>
       {hasMore && (
         <button
