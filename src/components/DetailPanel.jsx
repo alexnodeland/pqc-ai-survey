@@ -277,25 +277,9 @@ export const DetailPanel = ({ selectedCase, activeTab, setActiveTab, currentInde
           {activeTab === 'implementation' && (
             <div>
               <div className="p-4 sm:p-6 border-b border-slate-800/50 bg-sky-950/10">
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-0">
-                  <div>
-                    <h2 className="text-base sm:text-lg font-semibold text-white">Implementation Guide</h2>
-                    <p className="text-xs sm:text-sm text-slate-400 mt-1">Performance impact and code examples</p>
-                  </div>
-                  <div className="flex items-center gap-3 sm:gap-4">
-                    <div className="text-center sm:text-right">
-                      <div className="text-[10px] sm:text-xs text-slate-500">Difficulty</div>
-                      <div className={`text-xs sm:text-sm font-semibold ${
-                        selectedCase.implementation.difficulty === 'Low' ? 'text-emerald-400' :
-                        selectedCase.implementation.difficulty === 'Medium' ? 'text-sky-400' :
-                        selectedCase.implementation.difficulty === 'High' ? 'text-orange-400' : 'text-red-400'
-                      }`}>{selectedCase.implementation.difficulty}</div>
-                    </div>
-                    <div className="text-center sm:text-right">
-                      <div className="text-[10px] sm:text-xs text-slate-500">Est. Time</div>
-                      <div className="text-xs sm:text-sm font-semibold text-slate-300">{selectedCase.implementation.timeEstimate}</div>
-                    </div>
-                  </div>
+                <div>
+                  <h2 className="text-base sm:text-lg font-semibold text-white">Implementation Guide</h2>
+                  <p className="text-xs sm:text-sm text-slate-400 mt-1">Performance impact and code examples</p>
                 </div>
               </div>
               <div className="p-4 sm:p-6 space-y-6">
