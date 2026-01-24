@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { useCases } from './data';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
-import { QuantumTimeline } from './components/QuantumTimeline';
+import { LandingPage } from './components/LandingPage';
 import { Sidebar } from './components/Sidebar';
 import { DetailPanel } from './components/DetailPanel';
 
 const PQCSecurityDashboard = () => {
   // State
+  const [showLanding, setShowLanding] = useState(true);
   const [selectedUseCase, setSelectedUseCase] = useState('inference');
   const [activeTab, setActiveTab] = useState('threat');
   const [expandedCategories, setExpandedCategories] = useState({
@@ -31,13 +32,18 @@ const PQCSecurityDashboard = () => {
     setExpandedCategories(prev => ({ ...prev, [catId]: !prev[catId] }));
   };
 
+  // Show landing page or dashboard
+  if (showLanding) {
+    return <LandingPage onEnterDashboard={() => setShowLanding(false)} />;
+  }
+
   return (
     <div className="min-h-screen bg-[#0a0f1a] text-white overflow-x-hidden">
       <Header
           isMobileMenuOpen={isMobileMenuOpen}
           setIsMobileMenuOpen={setIsMobileMenuOpen}
+          onLogoClick={() => setShowLanding(true)}
         />
-      <QuantumTimeline />
 
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 sm:py-8">
