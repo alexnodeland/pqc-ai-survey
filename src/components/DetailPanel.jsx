@@ -1,7 +1,7 @@
 import React from 'react';
 import { ArrowRight, AlertCircle, ExternalLink } from 'lucide-react';
 import { AlgorithmBadge } from './AlgorithmBadge';
-import { InfoPill, CodeBlock, ReferenceLink, ReferenceList } from './ui';
+import { InfoPill, CodeBlock, ReferenceLink, ReferenceList, Tooltip } from './ui';
 import { tabs, flowDiagrams } from '../data';
 
 export const DetailPanel = ({ selectedCase, activeTab, setActiveTab }) => {
@@ -275,17 +275,19 @@ export const DetailPanel = ({ selectedCase, activeTab, setActiveTab }) => {
                             const isLast = idx === diagram.nodes.length - 1;
                             return (
                               <React.Fragment key={node.id}>
-                                {/* Node - responsive sizing */}
+                                {/* Node - responsive sizing with tooltip */}
                                 <div className="flex flex-col items-center flex-shrink-0">
-                                  <div className={`
-                                    w-12 h-12 sm:w-16 sm:h-16 rounded-lg sm:rounded-xl flex items-center justify-center
-                                    ${node.isEncryption
-                                      ? 'bg-gradient-to-br from-emerald-500/20 to-cyan-500/20 border-2 border-emerald-500/40'
-                                      : 'bg-slate-800/80 border border-slate-700'
-                                    }
-                                  `}>
-                                    <NodeIcon className={`w-5 h-5 sm:w-7 sm:h-7 ${node.isEncryption ? 'text-emerald-400' : 'text-slate-400'}`} />
-                                  </div>
+                                  <Tooltip content={node.description} position="top">
+                                    <div className={`
+                                      w-12 h-12 sm:w-16 sm:h-16 rounded-lg sm:rounded-xl flex items-center justify-center cursor-pointer transition-all hover:scale-105
+                                      ${node.isEncryption
+                                        ? 'bg-gradient-to-br from-emerald-500/20 to-cyan-500/20 border-2 border-emerald-500/40 hover:border-emerald-400/60'
+                                        : 'bg-slate-800/80 border border-slate-700 hover:border-slate-500'
+                                      }
+                                    `}>
+                                      <NodeIcon className={`w-5 h-5 sm:w-7 sm:h-7 ${node.isEncryption ? 'text-emerald-400' : 'text-slate-400'}`} />
+                                    </div>
+                                  </Tooltip>
                                   <span className={`text-[10px] sm:text-xs mt-1.5 sm:mt-2 font-medium text-center max-w-[60px] sm:max-w-none ${node.isEncryption ? 'text-emerald-400' : 'text-slate-400'}`}>
                                     {node.label}
                                   </span>
