@@ -38,7 +38,7 @@ const PQCSecurityDashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#0a0f1a] text-white overflow-x-hidden">
+    <div className="min-h-screen bg-dark-900 bg-circuit text-white overflow-x-hidden font-mono">
       <Header
           isMobileMenuOpen={isMobileMenuOpen}
           setIsMobileMenuOpen={setIsMobileMenuOpen}

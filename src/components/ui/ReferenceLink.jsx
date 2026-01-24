@@ -19,15 +19,15 @@ export const ReferenceLink = ({
   if (!label) return null;
 
   const baseStyles = {
-    pill: 'px-3 py-1.5 bg-slate-800/50 rounded-lg text-sm border border-slate-700/50 transition-all',
-    inline: 'text-sm transition-colors',
-    card: 'p-3 bg-slate-800/30 rounded-lg border border-slate-700/50 transition-all block'
+    pill: 'px-3 py-1.5 bg-dark-800/50 rounded-md text-xs font-mono border border-neon-cyan/20 transition-all duration-300',
+    inline: 'text-xs font-mono transition-colors',
+    card: 'p-3 bg-dark-800/50 rounded-lg border border-neon-cyan/20 transition-all duration-300 block'
   };
 
   const linkStyles = {
-    pill: 'text-slate-300 hover:bg-slate-700/50 hover:border-sky-500/50 hover:text-sky-300 cursor-pointer inline-flex items-center gap-1.5',
-    inline: 'text-sky-400 hover:text-sky-300 cursor-pointer inline-flex items-center gap-1',
-    card: 'hover:bg-slate-700/30 hover:border-sky-500/30'
+    pill: 'text-slate-300 hover:bg-dark-700/50 hover:border-neon-cyan/50 hover:text-neon-cyan hover:shadow-neon-cyan cursor-pointer inline-flex items-center gap-1.5',
+    inline: 'text-neon-cyan hover:text-glow-cyan cursor-pointer inline-flex items-center gap-1',
+    card: 'hover:bg-dark-700/30 hover:border-neon-cyan/40 hover:shadow-neon-cyan'
   };
 
   const textStyles = {
@@ -49,16 +49,16 @@ export const ReferenceLink = ({
           <div>
             <div className="flex items-center gap-2 text-slate-300">
               <span>{label}</span>
-              {showIcon && <ExternalLink className="w-3 h-3 opacity-50" />}
+              {showIcon && <ExternalLink className="w-3 h-3 text-neon-cyan opacity-50" />}
             </div>
             {description && (
-              <p className="text-xs text-slate-500 mt-1">{description}</p>
+              <p className="text-[11px] text-slate-500 mt-1">{description}</p>
             )}
           </div>
         ) : (
           <>
             <span>{label}</span>
-            {showIcon && <ExternalLink className="w-3 h-3 opacity-50 flex-shrink-0" />}
+            {showIcon && <ExternalLink className="w-3 h-3 text-neon-cyan opacity-50 flex-shrink-0" />}
           </>
         )}
       </a>

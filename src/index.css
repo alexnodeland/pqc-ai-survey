@@ -1,8 +1,166 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* Base styles - make everything use the monospace aesthetic */
 html, body {
   overflow-x: hidden;
   max-width: 100vw;
+  font-family: 'JetBrains Mono', 'Space Mono', monospace;
+  letter-spacing: 0.02em;
+}
+
+/* Override default body text */
+body {
+  background-color: #050810;
+  color: #e2e8f0;
+}
+
+/* Text glow utilities - stronger effects */
+.text-glow-cyan {
+  text-shadow: 0 0 10px rgba(0,245,255,0.7), 0 0 20px rgba(0,245,255,0.4), 0 0 40px rgba(0,245,255,0.2);
+}
+.text-glow-magenta {
+  text-shadow: 0 0 10px rgba(255,0,255,0.7), 0 0 20px rgba(255,0,255,0.4), 0 0 40px rgba(255,0,255,0.2);
+}
+.text-glow-green {
+  text-shadow: 0 0 10px rgba(57,255,20,0.7), 0 0 20px rgba(57,255,20,0.4), 0 0 40px rgba(57,255,20,0.2);
+}
+.text-glow-amber {
+  text-shadow: 0 0 10px rgba(255,184,0,0.7), 0 0 20px rgba(255,184,0,0.4), 0 0 40px rgba(255,184,0,0.2);
+}
+.text-glow-red {
+  text-shadow: 0 0 10px rgba(255,7,58,0.7), 0 0 20px rgba(255,7,58,0.4), 0 0 40px rgba(255,7,58,0.2);
+}
+
+/* Border glow utilities */
+.border-glow-cyan {
+  box-shadow: 0 0 10px rgba(0,245,255,0.4), inset 0 0 10px rgba(0,245,255,0.1);
+}
+.border-glow-magenta {
+  box-shadow: 0 0 10px rgba(255,0,255,0.4), inset 0 0 10px rgba(255,0,255,0.1);
+}
+.border-glow-green {
+  box-shadow: 0 0 10px rgba(57,255,20,0.4), inset 0 0 10px rgba(57,255,20,0.1);
+}
+
+/* Circuit grid background - more visible */
+.bg-circuit {
+  background-image:
+    linear-gradient(rgba(0,245,255,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,245,255,0.06) 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+
+/* Scanline effect for retro CRT feel */
+.scanlines::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.1) 2px,
+    rgba(0, 0, 0, 0.1) 4px
+  );
+  pointer-events: none;
+}
+
+/* Neon gradient text */
+.text-neon-gradient {
+  background: linear-gradient(90deg, #00f5ff, #ffffff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Neon border animation */
+@keyframes neon-border-pulse {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(0,245,255,0.5), 0 0 10px rgba(0,245,255,0.3), 0 0 20px rgba(0,245,255,0.1);
+    border-color: rgba(0,245,255,0.8);
+  }
+  50% {
+    box-shadow: 0 0 10px rgba(0,245,255,0.8), 0 0 20px rgba(0,245,255,0.5), 0 0 40px rgba(0,245,255,0.2);
+    border-color: rgba(0,245,255,1);
+  }
+}
+
+.animate-neon-border {
+  animation: neon-border-pulse 2s ease-in-out infinite;
+}
+
+/* Glitch effect for headings */
+@keyframes glitch {
+  0%, 100% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+}
+
+.hover-glitch:hover {
+  animation: glitch 0.3s ease-in-out;
+}
+
+/* Sleek card styling */
+.card-retro {
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(5, 8, 16, 0.95) 100%);
+  border: 1px solid rgba(0, 245, 255, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.card-retro:hover {
+  border-color: rgba(0, 245, 255, 0.5);
+  box-shadow: 0 0 20px rgba(0, 245, 255, 0.15), inset 0 0 20px rgba(0, 245, 255, 0.05);
+}
+
+/* Button styling */
+.btn-neon {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.btn-neon::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 245, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.btn-neon:hover::before {
+  left: 100%;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0f1a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #00f5ff33, #00f5ff66);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #00f5ff66, #00f5ff99);
+}
+
+/* Selection styling */
+::selection {
+  background: rgba(0, 245, 255, 0.3);
+  color: #fff;
 }

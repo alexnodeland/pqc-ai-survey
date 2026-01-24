@@ -1,75 +1,94 @@
 import React from 'react';
-import { Shield, ArrowRight, Lock, Cpu, Database, ChevronRight } from 'lucide-react';
+import { Shield, ArrowRight, Lock, Cpu, Database, ChevronRight, Zap } from 'lucide-react';
 import { QuantumTimeline } from './QuantumTimeline';
 
 export const LandingPage = ({ onEnterDashboard }) => {
   return (
-    <div className="min-h-screen bg-[#0a0f1a] text-white">
+    <div className="min-h-screen bg-dark-900 bg-circuit text-white font-mono">
       {/* Hero Section */}
       <div className="relative overflow-hidden">
-        {/* Background gradient effects */}
-        <div className="absolute inset-0 bg-gradient-to-br from-sky-900/20 via-transparent to-violet-900/20" />
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-sky-500/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-violet-500/10 rounded-full blur-3xl" />
+        {/* Animated background effects */}
+        <div className="absolute inset-0 bg-gradient-to-br from-neon-cyan/5 via-transparent to-neon-magenta/5" />
+        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-neon-cyan/10 rounded-full blur-[100px] animate-pulse-glow" />
+        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-neon-magenta/10 rounded-full blur-[100px] animate-pulse-glow" style={{ animationDelay: '1.5s' }} />
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-20">
+        {/* Grid overlay */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(0,245,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(0,245,255,0.03)_1px,transparent_1px)] bg-[size:50px_50px]" />
+
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-24">
           {/* Logo and Title */}
-          <div className="text-center mb-10 sm:mb-16">
-            <div className="flex items-center justify-center gap-3 mb-6">
-              <div className="p-3 bg-gradient-to-br from-sky-500/20 to-violet-500/20 rounded-2xl border border-sky-500/30">
-                <Shield className="w-10 h-10 sm:w-12 sm:h-12 text-sky-400" />
+          <div className="text-center mb-12 sm:mb-20">
+            <div className="flex items-center justify-center gap-3 mb-8">
+              <div className="relative p-4 sm:p-5 rounded-2xl border border-neon-cyan/50 bg-dark-800/80 shadow-neon-cyan animate-neon-border">
+                <Shield className="w-12 h-12 sm:w-16 sm:h-16 text-neon-cyan" />
+                <div className="absolute inset-0 rounded-2xl bg-neon-cyan/5" />
               </div>
             </div>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-white via-sky-200 to-violet-200 bg-clip-text text-transparent">
-              Post-Quantum Security for AI
+
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-bold mb-6 tracking-tight">
+              <span className="text-neon-cyan text-glow-cyan">POST-QUANTUM</span>
+              <br />
+              <span className="bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">
+                SECURITY FOR AI
+              </span>
             </h1>
-            <p className="text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
-              A comprehensive guide to protecting AI and LLM systems against quantum computing threats
+
+            <p className="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed tracking-wide">
+              <span className="text-neon-cyan">&gt;</span> A comprehensive guide to protecting AI and LLM systems against quantum computing threats
             </p>
           </div>
 
           {/* What is this section */}
-          <div className="max-w-4xl mx-auto mb-12 sm:mb-16">
-            <div className="bg-slate-900/50 border border-slate-800 rounded-2xl p-6 sm:p-8">
-              <h2 className="text-xl sm:text-2xl font-semibold mb-4 text-white">What is this?</h2>
-              <p className="text-slate-400 leading-relaxed mb-6">
-                This interactive dashboard explores the intersection of <span className="text-sky-400 font-medium">post-quantum cryptography (PQC)</span> and
-                <span className="text-violet-400 font-medium"> AI security</span>. As quantum computing advances, the cryptographic foundations
-                protecting AI systems are at risk. This resource helps security teams, ML engineers, and architects understand where
-                quantum-resistant algorithms need to be deployed across the AI stack.
+          <div className="max-w-4xl mx-auto mb-16 sm:mb-20">
+            <div className="card-retro rounded-xl p-6 sm:p-8">
+              <div className="flex items-center gap-3 mb-5">
+                <div className="h-px flex-1 bg-gradient-to-r from-neon-cyan/50 to-transparent" />
+                <h2 className="text-lg sm:text-xl font-display font-semibold text-neon-cyan uppercase tracking-widest">
+                  // ABOUT
+                </h2>
+                <div className="h-px flex-1 bg-gradient-to-l from-neon-cyan/50 to-transparent" />
+              </div>
+
+              <p className="text-slate-300 leading-relaxed mb-8 text-sm sm:text-base">
+                This interactive dashboard explores the intersection of{' '}
+                <span className="text-neon-cyan font-semibold">post-quantum cryptography (PQC)</span> and{' '}
+                <span className="text-neon-magenta font-semibold">AI security</span>. As quantum computing advances,
+                the cryptographic foundations protecting AI systems are at risk.
               </p>
 
               <div className="grid sm:grid-cols-3 gap-4">
-                <div className="flex items-start gap-3 p-4 bg-slate-800/50 rounded-xl">
-                  <Lock className="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" />
-                  <div>
-                    <h3 className="font-medium text-white text-sm mb-1">10 Security Use Cases</h3>
-                    <p className="text-xs text-slate-500">From inference APIs to training data protection</p>
+                {[
+                  { icon: Lock, color: 'green', title: '10 Security Use Cases', desc: 'From inference APIs to training data' },
+                  { icon: Cpu, color: 'amber', title: 'PQC Algorithm Guidance', desc: 'ML-KEM, ML-DSA, SLH-DSA specs' },
+                  { icon: Database, color: 'cyan', title: 'Implementation Details', desc: 'Code examples & metrics' },
+                ].map((item, i) => (
+                  <div
+                    key={i}
+                    className="group flex items-start gap-3 p-4 bg-dark-800/50 rounded-lg border border-slate-800 hover:border-neon-cyan/30 transition-all duration-300"
+                  >
+                    <div className={`p-2 rounded-lg bg-neon-${item.color}/10 border border-neon-${item.color}/30`}>
+                      <item.icon className={`w-4 h-4 text-neon-${item.color}`} />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-white text-sm mb-1 font-display tracking-wide">{item.title}</h3>
+                      <p className="text-xs text-slate-500">{item.desc}</p>
+                    </div>
                   </div>
-                </div>
-                <div className="flex items-start gap-3 p-4 bg-slate-800/50 rounded-xl">
-                  <Cpu className="w-5 h-5 text-amber-400 mt-0.5 flex-shrink-0" />
-                  <div>
-                    <h3 className="font-medium text-white text-sm mb-1">PQC Algorithm Guidance</h3>
-                    <p className="text-xs text-slate-500">ML-KEM, ML-DSA, SLH-DSA recommendations</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3 p-4 bg-slate-800/50 rounded-xl">
-                  <Database className="w-5 h-5 text-sky-400 mt-0.5 flex-shrink-0" />
-                  <div>
-                    <h3 className="font-medium text-white text-sm mb-1">Implementation Details</h3>
-                    <p className="text-xs text-slate-500">Code examples, performance metrics, and references</p>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
           </div>
 
           {/* Why it matters section */}
           <div className="max-w-4xl mx-auto mb-8 sm:mb-12">
-            <h2 className="text-xl sm:text-2xl font-semibold mb-4 text-center text-white">Why does this matter now?</h2>
-            <p className="text-slate-400 text-center max-w-2xl mx-auto mb-8">
-              Quantum computers capable of breaking current encryption may arrive within the next decade.
+            <div className="flex items-center gap-3 mb-6">
+              <Zap className="w-5 h-5 text-neon-amber" />
+              <h2 className="text-lg sm:text-xl font-display font-semibold text-white uppercase tracking-widest">
+                Why Now?
+              </h2>
+            </div>
+            <p className="text-slate-400 max-w-2xl text-sm sm:text-base leading-relaxed">
+              <span className="text-neon-red font-semibold">Quantum computers capable of breaking current encryption may arrive within the next decade.</span>{' '}
               The "harvest now, decrypt later" threat means data captured today could be exposed tomorrow.
             </p>
           </div>
@@ -80,59 +99,48 @@ export const LandingPage = ({ onEnterDashboard }) => {
       <QuantumTimeline />
 
       {/* CTA Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-20">
         <div className="text-center">
           <button
             onClick={onEnterDashboard}
-            className="group inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-sky-600 to-violet-600 hover:from-sky-500 hover:to-violet-500 text-white font-semibold rounded-xl shadow-lg shadow-sky-500/25 transition-all duration-300 hover:shadow-xl hover:shadow-sky-500/30 hover:scale-105"
+            className="btn-neon group inline-flex items-center gap-4 px-10 py-5 font-display font-semibold uppercase tracking-widest text-sm border-2 border-neon-cyan text-neon-cyan bg-neon-cyan/5 hover:bg-neon-cyan/15 hover:shadow-neon-cyan-lg rounded-lg transition-all duration-300 hover:scale-[1.02]"
           >
-            Explore the Dashboard
-            <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+            <span>Enter Dashboard</span>
+            <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-2" />
           </button>
-          <p className="mt-4 text-sm text-slate-500">
-            Dive into detailed threat analysis, solutions, and implementation guidance
+          <p className="mt-6 text-sm text-slate-500 tracking-wide">
+            &gt; threat_analysis.exe // solutions // implementation_guide
           </p>
         </div>
 
         {/* Quick links */}
-        <div className="mt-12 sm:mt-16 grid sm:grid-cols-3 gap-4 max-w-3xl mx-auto">
-          <button
-            onClick={onEnterDashboard}
-            className="group flex items-center justify-between p-4 bg-slate-900/50 border border-slate-800 hover:border-red-500/50 rounded-xl transition-all"
-          >
-            <div className="text-left">
-              <span className="text-xs text-red-400 font-medium">Critical Now</span>
-              <p className="text-sm text-slate-300">LLM Inference APIs</p>
-            </div>
-            <ChevronRight className="w-4 h-4 text-slate-600 group-hover:text-red-400 transition-colors" />
-          </button>
-          <button
-            onClick={onEnterDashboard}
-            className="group flex items-center justify-between p-4 bg-slate-900/50 border border-slate-800 hover:border-amber-500/50 rounded-xl transition-all"
-          >
-            <div className="text-left">
-              <span className="text-xs text-amber-400 font-medium">High Priority</span>
-              <p className="text-sm text-slate-300">Model Artifact Signing</p>
-            </div>
-            <ChevronRight className="w-4 h-4 text-slate-600 group-hover:text-amber-400 transition-colors" />
-          </button>
-          <button
-            onClick={onEnterDashboard}
-            className="group flex items-center justify-between p-4 bg-slate-900/50 border border-slate-800 hover:border-sky-500/50 rounded-xl transition-all"
-          >
-            <div className="text-left">
-              <span className="text-xs text-sky-400 font-medium">Plan Ahead</span>
-              <p className="text-sm text-slate-300">Training Data Protection</p>
-            </div>
-            <ChevronRight className="w-4 h-4 text-slate-600 group-hover:text-sky-400 transition-colors" />
-          </button>
+        <div className="mt-16 sm:mt-20 grid sm:grid-cols-3 gap-4 max-w-3xl mx-auto">
+          {[
+            { label: 'CRITICAL', sublabel: 'LLM Inference APIs', color: 'red' },
+            { label: 'HIGH', sublabel: 'Model Artifact Signing', color: 'amber' },
+            { label: 'PLAN', sublabel: 'Training Data Protection', color: 'cyan' },
+          ].map((item, i) => (
+            <button
+              key={i}
+              onClick={onEnterDashboard}
+              className={`group flex items-center justify-between p-4 bg-dark-800/50 border border-slate-800 hover:border-neon-${item.color}/50 hover:shadow-neon-${item.color} rounded-lg transition-all duration-300`}
+            >
+              <div className="text-left">
+                <span className={`text-[10px] font-display font-semibold uppercase tracking-widest text-neon-${item.color}`}>
+                  {item.label}
+                </span>
+                <p className="text-sm text-slate-300 mt-1">{item.sublabel}</p>
+              </div>
+              <ChevronRight className={`w-4 h-4 text-slate-600 group-hover:text-neon-${item.color} transition-all group-hover:translate-x-1`} />
+            </button>
+          ))}
         </div>
       </div>
 
       {/* Footer note */}
-      <div className="border-t border-slate-800/50 py-6">
-        <p className="text-center text-xs text-slate-600">
-          Based on NIST PQC standards and current AI security best practices
+      <div className="border-t border-slate-800/50 py-8">
+        <p className="text-center text-xs text-slate-600 font-mono tracking-wider">
+          // Based on NIST PQC standards • FIPS 203/204/205
         </p>
       </div>
     </div>
