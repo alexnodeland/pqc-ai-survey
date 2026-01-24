@@ -171,98 +171,119 @@ export const DetailPanel = ({ selectedCase, activeTab, setActiveTab, currentInde
             </div>
           )}
 
-          {/* Solution Tab */}
-          {activeTab === 'solution' && (
+          {/* Approach Tab - Combined Solution + Flow */}
+          {activeTab === 'approach' && (
             <div>
               <div className="p-4 sm:p-6 border-b border-slate-800/50 bg-emerald-950/10">
                 <h2 className="text-base sm:text-lg font-semibold text-white">{selectedCase.solution.title}</h2>
                 <p className="text-xs sm:text-sm text-slate-400 mt-1">{selectedCase.solution.summary}</p>
               </div>
-              <div className="p-4 sm:p-6">
-                <div className="space-y-2">
-                  {selectedCase.solution.approach.map((step, i) => (
-                    <div key={i} className="flex items-start gap-2 sm:gap-3 p-2.5 sm:p-3 bg-emerald-950/20 rounded-lg border border-emerald-900/20">
-                      <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-emerald-500/20 flex items-center justify-center flex-shrink-0">
-                        <span className="text-[10px] sm:text-xs font-semibold text-emerald-400">{i + 1}</span>
+              <div className="p-4 sm:p-6 space-y-6">
+                {/* Flow Diagram */}
+                {diagram && (
+                  <div>
+                    <h3 className="text-xs sm:text-sm font-semibold text-slate-300 mb-3 flex items-center gap-2">
+                      <span className="text-emerald-400">▸</span> Data Flow
+                    </h3>
+                    <div className="relative bg-slate-800/20 rounded-xl p-4 border border-slate-700/30">
+                      {/* Scrollable container on mobile */}
+                      <div className="overflow-x-auto pb-2 -mx-2 px-2">
+                        <div className="min-w-[320px] sm:min-w-0 py-2">
+                          {/* Flow nodes */}
+                          <div className="flex items-start justify-between gap-1 sm:gap-2">
+                            {diagram.nodes.map((node, idx) => {
+                              const NodeIcon = node.icon;
+                              const isLast = idx === diagram.nodes.length - 1;
+                              return (
+                                <React.Fragment key={node.id}>
+                                  {/* Node */}
+                                  <div className="flex flex-col items-center flex-shrink-0">
+                                    <Tooltip content={node.description} position="bottom">
+                                      <div className={`
+                                        w-10 h-10 sm:w-14 sm:h-14 rounded-lg sm:rounded-xl flex items-center justify-center cursor-pointer transition-all hover:scale-105
+                                        ${node.isEncryption
+                                          ? 'bg-gradient-to-br from-emerald-500/20 to-cyan-500/20 border-2 border-emerald-500/40 hover:border-emerald-400/60'
+                                          : 'bg-slate-800/80 border border-slate-700 hover:border-slate-500'
+                                        }
+                                      `}>
+                                        <NodeIcon className={`w-4 h-4 sm:w-6 sm:h-6 ${node.isEncryption ? 'text-emerald-400' : 'text-slate-400'}`} />
+                                      </div>
+                                    </Tooltip>
+                                    <span className={`text-[9px] sm:text-xs mt-1.5 font-medium text-center max-w-[50px] sm:max-w-none ${node.isEncryption ? 'text-emerald-400' : 'text-slate-500'}`}>
+                                      {node.label}
+                                    </span>
+                                  </div>
+
+                                  {/* Arrow */}
+                                  {!isLast && (
+                                    <div className="flex items-center min-w-[20px] sm:min-w-[32px] h-10 sm:h-14">
+                                      <div className="flex items-center w-full">
+                                        <div className={`h-0.5 flex-1 min-w-[10px] sm:min-w-[16px] ${
+                                          diagram.nodes[idx + 1]?.isEncryption || node.isEncryption
+                                            ? 'bg-gradient-to-r from-emerald-500/50 to-cyan-500/50'
+                                            : 'bg-slate-700'
+                                        }`} />
+                                        <ArrowRight className={`w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 -ml-0.5 ${
+                                          diagram.nodes[idx + 1]?.isEncryption || node.isEncryption
+                                            ? 'text-emerald-500'
+                                            : 'text-slate-600'
+                                        }`} />
+                                      </div>
+                                    </div>
+                                  )}
+                                </React.Fragment>
+                              );
+                            })}
+                          </div>
+                        </div>
                       </div>
-                      <span className="text-xs sm:text-sm text-slate-300">{step}</span>
+
+                      {/* Legend */}
+                      <div className="mt-4 pt-3 border-t border-slate-800/50 flex flex-wrap items-center gap-4">
+                        <div className="flex items-center gap-2">
+                          <div className="w-3 h-3 rounded bg-slate-800 border border-slate-700" />
+                          <span className="text-[10px] text-slate-500">Standard</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <div className="w-3 h-3 rounded bg-gradient-to-br from-emerald-500/20 to-cyan-500/20 border-2 border-emerald-500/40" />
+                          <span className="text-[10px] text-emerald-400">PQC encryption</span>
+                        </div>
+                      </div>
                     </div>
-                  ))}
+                  </div>
+                )}
+
+                {/* Approach Steps */}
+                <div>
+                  <h3 className="text-xs sm:text-sm font-semibold text-slate-300 mb-3 flex items-center gap-2">
+                    <span className="text-emerald-400">▸</span> How It Works
+                  </h3>
+                  <div className="space-y-2">
+                    {selectedCase.solution.approach.map((step, i) => (
+                      <div key={i} className="flex items-start gap-2 sm:gap-3 p-2.5 sm:p-3 bg-emerald-950/20 rounded-lg border border-emerald-900/20">
+                        <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-emerald-500/20 flex items-center justify-center flex-shrink-0">
+                          <span className="text-[10px] sm:text-xs font-semibold text-emerald-400">{i + 1}</span>
+                        </div>
+                        <span className="text-xs sm:text-sm text-slate-300">{step}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
           )}
 
-          {/* Performance Tab */}
-          {activeTab === 'performance' && (
+          {/* Implementation Tab - Combined Performance + Code */}
+          {activeTab === 'implementation' && (
             <div>
               <div className="p-4 sm:p-6 border-b border-slate-800/50 bg-sky-950/10">
-                <h2 className="text-base sm:text-lg font-semibold text-white">Performance Impact</h2>
-                <p className="text-xs sm:text-sm text-slate-400 mt-1">Real-world overhead measurements</p>
-              </div>
-              <div className="p-4 sm:p-6 overflow-hidden">
-                {/* Key Metrics */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-4 sm:mb-6">
-                  {Object.entries(selectedCase.performance.overhead).map(([key, data]) => (
-                    <InfoPill
-                      key={key}
-                      label={key.charAt(0).toUpperCase() + key.slice(1)}
-                      value={data.value}
-                      detail={data.detail}
-                      color="sky"
-                    />
-                  ))}
-                </div>
-
-                {/* Benchmark Table - scrollable on mobile */}
-                <div className="bg-slate-800/30 rounded-xl overflow-hidden">
-                  <div className="overflow-x-auto">
-                    <table className="w-full min-w-[400px] sm:min-w-[500px]">
-                      <thead>
-                        <tr className="border-b border-slate-700/50">
-                          <th className="text-left p-2 sm:p-3 text-[10px] sm:text-xs font-semibold text-slate-400 uppercase tracking-wider">Scenario</th>
-                          <th className="text-left p-2 sm:p-3 text-[10px] sm:text-xs font-semibold text-slate-400 uppercase tracking-wider">Payload</th>
-                          <th className="text-left p-2 sm:p-3 text-[10px] sm:text-xs font-semibold text-slate-400 uppercase tracking-wider">Overhead</th>
-                          <th className="text-left p-2 sm:p-3 text-[10px] sm:text-xs font-semibold text-slate-400 uppercase tracking-wider">Verdict</th>
-                        </tr>
-                      </thead>
-                      <tbody className="divide-y divide-slate-700/30">
-                        {selectedCase.performance.benchmarks.map((bench, i) => (
-                          <tr key={i} className="hover:bg-slate-700/20 transition-colors">
-                            <td className="p-2 sm:p-3 text-xs sm:text-sm text-slate-300">{bench.scenario}</td>
-                            <td className="p-2 sm:p-3 text-xs sm:text-sm text-slate-400 font-mono">{bench.payload}</td>
-                            <td className="p-2 sm:p-3 text-xs sm:text-sm text-slate-400 font-mono">{bench.overhead}</td>
-                            <td className="p-2 sm:p-3">
-                              <span className={`text-[10px] sm:text-xs px-2 py-1 rounded-full font-medium whitespace-nowrap ${
-                                bench.verdict === 'Excellent' ? 'bg-emerald-950/50 text-emerald-300' :
-                                bench.verdict === 'Acceptable' || bench.verdict === 'Viable' || bench.verdict === 'Instant' || bench.verdict === 'One-time' ? 'bg-sky-950/50 text-sky-300' :
-                                bench.verdict === 'No overhead' || bench.verdict === 'No impact' || bench.verdict === 'Negligible' ? 'bg-slate-800 text-slate-300' :
-                                'bg-amber-950/50 text-amber-300'
-                              }`}>
-                                {bench.verdict}
-                              </span>
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* Code Tab */}
-          {activeTab === 'code' && (
-            <div>
-              <div className="p-4 sm:p-6 border-b border-slate-800/50 bg-violet-950/10">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-0">
                   <div>
-                    <h2 className="text-base sm:text-lg font-semibold text-white">Implementation</h2>
-                    <p className="text-xs sm:text-sm text-slate-400 mt-1">Code examples and integration guide</p>
+                    <h2 className="text-base sm:text-lg font-semibold text-white">Implementation Guide</h2>
+                    <p className="text-xs sm:text-sm text-slate-400 mt-1">Performance impact and code examples</p>
                   </div>
-                  <div className="flex items-center gap-4 sm:gap-6">
-                    <div className="sm:text-right">
+                  <div className="flex items-center gap-3 sm:gap-4">
+                    <div className="text-center sm:text-right">
                       <div className="text-[10px] sm:text-xs text-slate-500">Difficulty</div>
                       <div className={`text-xs sm:text-sm font-semibold ${
                         selectedCase.implementation.difficulty === 'Low' ? 'text-emerald-400' :
@@ -270,120 +291,92 @@ export const DetailPanel = ({ selectedCase, activeTab, setActiveTab, currentInde
                         selectedCase.implementation.difficulty === 'High' ? 'text-orange-400' : 'text-red-400'
                       }`}>{selectedCase.implementation.difficulty}</div>
                     </div>
-                    <div className="sm:text-right">
+                    <div className="text-center sm:text-right">
                       <div className="text-[10px] sm:text-xs text-slate-500">Est. Time</div>
                       <div className="text-xs sm:text-sm font-semibold text-slate-300">{selectedCase.implementation.timeEstimate}</div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div className="p-4 sm:p-6 space-y-4 sm:space-y-6">
-                {/* Prerequisites */}
+              <div className="p-4 sm:p-6 space-y-6">
+                {/* Performance Overview */}
                 <div>
-                  <h3 className="text-xs sm:text-sm font-semibold text-slate-300 mb-2 sm:mb-3">Prerequisites</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {selectedCase.implementation.prerequisites.map((prereq, i) => (
-                      <span key={i} className="px-2 sm:px-3 py-1 sm:py-1.5 bg-slate-800/50 rounded-lg text-xs sm:text-sm text-slate-400 border border-slate-700/50">
-                        {prereq}
-                      </span>
+                  <h3 className="text-xs sm:text-sm font-semibold text-slate-300 mb-3 flex items-center gap-2">
+                    <span className="text-sky-400">▸</span> Performance Impact
+                  </h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
+                    {Object.entries(selectedCase.performance.overhead).map(([key, data]) => (
+                      <InfoPill
+                        key={key}
+                        label={key.charAt(0).toUpperCase() + key.slice(1)}
+                        value={data.value}
+                        detail={data.detail}
+                        color="sky"
+                      />
                     ))}
+                  </div>
+
+                  {/* Benchmark Table */}
+                  <div className="bg-slate-800/30 rounded-xl overflow-hidden">
+                    <div className="overflow-x-auto">
+                      <table className="w-full min-w-[400px] sm:min-w-[500px]">
+                        <thead>
+                          <tr className="border-b border-slate-700/50">
+                            <th className="text-left p-2 sm:p-3 text-[10px] sm:text-xs font-semibold text-slate-400 uppercase tracking-wider">Scenario</th>
+                            <th className="text-left p-2 sm:p-3 text-[10px] sm:text-xs font-semibold text-slate-400 uppercase tracking-wider">Payload</th>
+                            <th className="text-left p-2 sm:p-3 text-[10px] sm:text-xs font-semibold text-slate-400 uppercase tracking-wider">Overhead</th>
+                            <th className="text-left p-2 sm:p-3 text-[10px] sm:text-xs font-semibold text-slate-400 uppercase tracking-wider">Verdict</th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-slate-700/30">
+                          {selectedCase.performance.benchmarks.map((bench, i) => (
+                            <tr key={i} className="hover:bg-slate-700/20 transition-colors">
+                              <td className="p-2 sm:p-3 text-xs sm:text-sm text-slate-300">{bench.scenario}</td>
+                              <td className="p-2 sm:p-3 text-xs sm:text-sm text-slate-400 font-mono">{bench.payload}</td>
+                              <td className="p-2 sm:p-3 text-xs sm:text-sm text-slate-400 font-mono">{bench.overhead}</td>
+                              <td className="p-2 sm:p-3">
+                                <span className={`text-[10px] sm:text-xs px-2 py-1 rounded-full font-medium whitespace-nowrap ${
+                                  bench.verdict === 'Excellent' ? 'bg-emerald-950/50 text-emerald-300' :
+                                  bench.verdict === 'Acceptable' || bench.verdict === 'Viable' || bench.verdict === 'Instant' || bench.verdict === 'One-time' ? 'bg-sky-950/50 text-sky-300' :
+                                  bench.verdict === 'No overhead' || bench.verdict === 'No impact' || bench.verdict === 'Negligible' ? 'bg-slate-800 text-slate-300' :
+                                  'bg-amber-950/50 text-amber-300'
+                                }`}>
+                                  {bench.verdict}
+                                </span>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                 </div>
 
-                {/* Code Example */}
-                <CodeBlock
-                  code={selectedCase.implementation.code}
-                  language={selectedCase.implementation.code.includes('class') && selectedCase.implementation.code.includes('def ') ? 'python' : 'typescript'}
-                  title="Implementation Example"
-                />
-              </div>
-            </div>
-          )}
+                {/* Code Section */}
+                <div>
+                  <h3 className="text-xs sm:text-sm font-semibold text-slate-300 mb-3 flex items-center gap-2">
+                    <span className="text-sky-400">▸</span> Code Example
+                  </h3>
 
-          {/* Diagram Tab */}
-          {activeTab === 'diagram' && (
-            <div>
-              <div className="p-4 sm:p-6 border-b border-slate-800/50 bg-cyan-950/10">
-                <h2 className="text-base sm:text-lg font-semibold text-white">
-                  {diagram?.title || 'Data Flow'}
-                </h2>
-                <p className="text-xs sm:text-sm text-slate-400 mt-1">
-                  {diagram?.description || 'How data flows through the system'}
-                </p>
-              </div>
-              <div className="p-4 sm:p-6">
-                {diagram && (
-                  <div className="relative">
-                    {/* Scrollable container on mobile - padding for glow effects */}
-                    <div className="overflow-x-auto pb-4 -mx-2 px-2">
-                      <div className="min-w-[320px] sm:min-w-0 py-2">
-                        {/* Flow nodes */}
-                        <div className="flex items-start justify-between gap-1 sm:gap-2">
-                          {diagram.nodes.map((node, idx) => {
-                            const NodeIcon = node.icon;
-                            const isLast = idx === diagram.nodes.length - 1;
-                            return (
-                              <React.Fragment key={node.id}>
-                                {/* Node - responsive sizing with tooltip */}
-                                <div className="flex flex-col items-center flex-shrink-0">
-                                  <Tooltip content={node.description} position="bottom">
-                                    <div className={`
-                                      w-12 h-12 sm:w-16 sm:h-16 rounded-lg sm:rounded-xl flex items-center justify-center cursor-pointer transition-all hover:scale-105
-                                      ${node.isEncryption
-                                        ? 'bg-gradient-to-br from-emerald-500/20 to-cyan-500/20 border-2 border-emerald-500/40 hover:border-emerald-400/60'
-                                        : 'bg-slate-800/80 border border-slate-700 hover:border-slate-500'
-                                      }
-                                    `}>
-                                      <NodeIcon className={`w-5 h-5 sm:w-7 sm:h-7 ${node.isEncryption ? 'text-emerald-400' : 'text-slate-400'}`} />
-                                    </div>
-                                  </Tooltip>
-                                  <span className={`text-[10px] sm:text-xs mt-1.5 sm:mt-2 font-medium text-center max-w-[60px] sm:max-w-none ${node.isEncryption ? 'text-emerald-400' : 'text-slate-400'}`}>
-                                    {node.label}
-                                  </span>
-                                </div>
-
-                                {/* Arrow - aligned with icon center */}
-                                {!isLast && (
-                                  <div className="flex items-center min-w-[24px] sm:min-w-[40px] h-12 sm:h-16">
-                                    <div className="flex items-center w-full">
-                                      <div className={`h-0.5 flex-1 min-w-[12px] sm:min-w-[20px] ${
-                                        diagram.nodes[idx + 1]?.isEncryption || node.isEncryption
-                                          ? 'bg-gradient-to-r from-emerald-500/50 to-cyan-500/50'
-                                          : 'bg-slate-700'
-                                      }`} />
-                                      <ArrowRight className={`w-3 h-3 sm:w-4 sm:h-4 -ml-0.5 sm:-ml-1 ${
-                                        diagram.nodes[idx + 1]?.isEncryption || node.isEncryption
-                                          ? 'text-emerald-500'
-                                          : 'text-slate-600'
-                                      }`} />
-                                    </div>
-                                  </div>
-                                )}
-                              </React.Fragment>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Scroll hint on mobile */}
-                    <div className="sm:hidden text-center mt-2">
-                      <span className="text-[10px] text-slate-600">Swipe to see full diagram</span>
-                    </div>
-
-                    {/* Legend - stack on mobile */}
-                    <div className="mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-slate-800/50 flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-6">
-                      <div className="flex items-center gap-2">
-                        <div className="w-4 h-4 rounded bg-slate-800 border border-slate-700" />
-                        <span className="text-[10px] sm:text-xs text-slate-500">Standard component</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <div className="w-4 h-4 rounded bg-gradient-to-br from-emerald-500/20 to-cyan-500/20 border-2 border-emerald-500/40" />
-                        <span className="text-[10px] sm:text-xs text-emerald-400">PQC encryption point</span>
-                      </div>
+                  {/* Prerequisites */}
+                  <div className="mb-4">
+                    <div className="text-[10px] sm:text-xs text-slate-500 mb-2">Prerequisites</div>
+                    <div className="flex flex-wrap gap-2">
+                      {selectedCase.implementation.prerequisites.map((prereq, i) => (
+                        <span key={i} className="px-2 sm:px-3 py-1 sm:py-1.5 bg-slate-800/50 rounded-lg text-xs sm:text-sm text-slate-400 border border-slate-700/50">
+                          {prereq}
+                        </span>
+                      ))}
                     </div>
                   </div>
-                )}
+
+                  {/* Code Block */}
+                  <CodeBlock
+                    code={selectedCase.implementation.code}
+                    language={selectedCase.implementation.code.includes('class') && selectedCase.implementation.code.includes('def ') ? 'python' : 'typescript'}
+                    title="Implementation Example"
+                  />
+                </div>
               </div>
             </div>
           )}
