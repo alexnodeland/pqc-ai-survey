@@ -34,7 +34,7 @@ export const LandingPage = ({ onEnterDashboard }) => {
             </h1>
 
             <p className="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed tracking-wide">
-              <span className="text-neon-cyan">&gt;</span> A comprehensive guide to protecting AI and LLM systems against quantum computing threats
+              <span className="text-neon-cyan">&gt;</span> Protecting AI systems against quantum threats with NIST-standardized cryptography
             </p>
 
             {/* Hero CTA - immediately visible */}
@@ -64,10 +64,10 @@ export const LandingPage = ({ onEnterDashboard }) => {
               </div>
 
               <p className="text-slate-300 leading-relaxed mb-8 text-sm sm:text-base">
-                This interactive dashboard explores the intersection of{' '}
-                <span className="text-neon-cyan font-semibold">post-quantum cryptography (PQC)</span> and{' '}
-                <span className="text-neon-magenta font-semibold">AI security</span>. As quantum computing advances,
-                the cryptographic foundations protecting AI systems are at risk.
+                An interactive guide to{' '}
+                <span className="text-neon-cyan font-semibold">post-quantum cryptography</span> for{' '}
+                <span className="text-neon-magenta font-semibold">AI systems</span>—covering threats,
+                solutions, and implementation paths for the quantum transition.
               </p>
 
               <div className="grid sm:grid-cols-3 gap-4">
@@ -102,8 +102,8 @@ export const LandingPage = ({ onEnterDashboard }) => {
               </h2>
             </div>
             <p className="text-slate-400 max-w-2xl text-sm sm:text-base leading-relaxed">
-              <span className="text-neon-red font-semibold">Quantum computers capable of breaking current encryption may arrive within the next decade.</span>{' '}
-              The "harvest now, decrypt later" threat means data captured today could be exposed tomorrow.
+              <span className="text-neon-red font-semibold">Cryptographically relevant quantum computers are approaching.</span>{' '}
+              Data captured today under classical encryption may be decrypted within years, not decades.
             </p>
           </div>
 

@@ -21,7 +21,7 @@ export const flowDiagrams = {
         icon: Lock,
         position: 1,
         isEncryption: true,
-        description: 'Hybrid X25519 + Kyber768 key exchange establishes quantum-resistant session keys. Per-session forward secrecy prevents bulk "harvest now, decrypt later" attacks'
+        description: 'Hybrid X25519 + Kyber768 key exchange establishes quantum-resistant session keys with per-session forward secrecy'
       },
       {
         id: 'gateway',
@@ -134,7 +134,7 @@ export const flowDiagrams = {
         label: 'Client',
         icon: Users,
         position: 0,
-        description: 'API client with ML-DSA keypair registered with provider. Replaces long-lived API keys vulnerable to "harvest now, decrypt later" attacks'
+        description: 'API client with ML-DSA keypair registered with provider. Replaces long-lived API keys with cryptographic identity'
       },
       {
         id: 'challenge',
@@ -220,7 +220,7 @@ export const flowDiagrams = {
         label: 'Data Source',
         icon: Globe,
         position: 0,
-        description: 'Raw training data containing licensed content, PII, and proprietary information. Exposure enables lawsuits (NYT v. OpenAI) and GDPR violations'
+        description: 'Raw training data containing licensed content, PII, and proprietary information. Exposure creates legal and regulatory liability'
       },
       {
         id: 'encrypt',
