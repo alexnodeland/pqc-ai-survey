@@ -31,12 +31,12 @@ export const Sidebar = ({
       {/* Sidebar */}
       <aside className={`
         lg:col-span-4 xl:col-span-3
-        fixed lg:relative inset-y-0 left-0
+        fixed lg:relative inset-y-0 left-0 lg:inset-auto
         w-80 max-w-[85vw] lg:w-auto lg:max-w-none bg-[#0a0f1a] lg:bg-transparent
         border-r border-slate-800/50 lg:border-0
         transform transition-transform duration-300 ease-out
         ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
-        z-50 lg:z-0 overflow-y-auto
+        z-50 lg:z-0 overflow-y-auto lg:overflow-visible
       `}>
         <div className="sticky top-0 lg:top-6 space-y-4 p-4 lg:p-0">
           {/* Mobile close button */}

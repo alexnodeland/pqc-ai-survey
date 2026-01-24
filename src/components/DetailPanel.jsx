@@ -286,15 +286,15 @@ export const DetailPanel = ({ selectedCase, activeTab, setActiveTab }) => {
                                   `}>
                                     <NodeIcon className={`w-5 h-5 sm:w-7 sm:h-7 ${node.isEncryption ? 'text-emerald-400' : 'text-slate-400'}`} />
                                   </div>
-                                  <span className={`text-[10px] sm:text-xs mt-1.5 sm:mt-2 font-medium text-center min-h-[28px] sm:min-h-[32px] flex items-start justify-center max-w-[60px] sm:max-w-none ${node.isEncryption ? 'text-emerald-400' : 'text-slate-400'}`}>
+                                  <span className={`text-[10px] sm:text-xs mt-1.5 sm:mt-2 font-medium text-center max-w-[60px] sm:max-w-none ${node.isEncryption ? 'text-emerald-400' : 'text-slate-400'}`}>
                                     {node.label}
                                   </span>
                                 </div>
 
                                 {/* Arrow - aligned with icon center */}
                                 {!isLast && (
-                                  <div className="flex-1 flex items-center justify-center min-w-[24px] sm:min-w-[40px] h-12 sm:h-16">
-                                    <div className="flex items-center">
+                                  <div className="flex items-center min-w-[24px] sm:min-w-[40px] h-12 sm:h-16">
+                                    <div className="flex items-center w-full">
                                       <div className={`h-0.5 flex-1 min-w-[12px] sm:min-w-[20px] ${
                                         diagram.nodes[idx + 1]?.isEncryption || node.isEncryption
                                           ? 'bg-gradient-to-r from-emerald-500/50 to-cyan-500/50'
