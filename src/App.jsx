@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useCases } from './data';
+import React, { useState, useEffect, useMemo } from 'react';
+import { useCases, urgencyCategories } from './data';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { LandingPage } from './components/LandingPage';
@@ -27,9 +27,31 @@ const PQCSecurityDashboard = () => {
   // Derived state
   const selectedCase = useCases[selectedUseCase];
 
+  // Create ordered list of use case IDs from urgency categories
+  const orderedUseCaseIds = useMemo(() => {
+    return urgencyCategories.flatMap(cat => cat.useCaseIds);
+  }, []);
+
+  const currentIndex = orderedUseCaseIds.indexOf(selectedUseCase);
+  const totalUseCases = orderedUseCaseIds.length;
+
   // Handlers
   const toggleCategory = (catId) => {
     setExpandedCategories(prev => ({ ...prev, [catId]: !prev[catId] }));
+  };
+
+  const goToPrevUseCase = () => {
+    if (currentIndex > 0) {
+      setSelectedUseCase(orderedUseCaseIds[currentIndex - 1]);
+      setActiveTab('threat'); // Reset to first tab
+    }
+  };
+
+  const goToNextUseCase = () => {
+    if (currentIndex < totalUseCases - 1) {
+      setSelectedUseCase(orderedUseCaseIds[currentIndex + 1]);
+      setActiveTab('threat'); // Reset to first tab
+    }
   };
 
   // Show landing page or dashboard
@@ -60,6 +82,10 @@ const PQCSecurityDashboard = () => {
             selectedCase={selectedCase}
             activeTab={activeTab}
             setActiveTab={setActiveTab}
+            currentIndex={currentIndex}
+            totalUseCases={totalUseCases}
+            onPrev={goToPrevUseCase}
+            onNext={goToNextUseCase}
           />
         </div>
       </div>

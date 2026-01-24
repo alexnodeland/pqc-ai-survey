@@ -1,19 +1,68 @@
 import React from 'react';
-import { ArrowRight, AlertCircle, ExternalLink } from 'lucide-react';
+import { ArrowRight, AlertCircle, ExternalLink, ChevronLeft, ChevronRight } from 'lucide-react';
 import { AlgorithmBadge } from './AlgorithmBadge';
 import { InfoPill, CodeBlock, ReferenceLink, ReferenceList, Tooltip } from './ui';
 import { tabs, flowDiagrams } from '../data';
 
-export const DetailPanel = ({ selectedCase, activeTab, setActiveTab }) => {
+export const DetailPanel = ({ selectedCase, activeTab, setActiveTab, currentIndex, totalUseCases, onPrev, onNext }) => {
   if (!selectedCase) return null;
 
   const diagram = flowDiagrams[selectedCase.id];
+  const hasPrev = currentIndex > 0;
+  const hasNext = currentIndex < totalUseCases - 1;
 
   return (
     <main className="lg:col-span-8 xl:col-span-9 min-w-0 w-full overflow-hidden font-mono">
       <div className="space-y-4 sm:space-y-6">
         {/* Hero Section */}
         <div className={`card-retro rounded-xl sm:rounded-2xl border border-neon-cyan/20`}>
+          {/* Navigation bar */}
+          <div className="flex items-center justify-between px-4 sm:px-6 py-2 sm:py-3 border-b border-neon-cyan/10 bg-dark-800/30">
+            <button
+              onClick={onPrev}
+              disabled={!hasPrev}
+              className={`flex items-center gap-1.5 px-2 sm:px-3 py-1.5 rounded-lg text-xs font-mono transition-all ${
+                hasPrev
+                  ? 'text-slate-400 hover:text-neon-cyan hover:bg-neon-cyan/10'
+                  : 'text-slate-700 cursor-not-allowed'
+              }`}
+            >
+              <ChevronLeft className="w-4 h-4" />
+              <span className="hidden sm:inline">Previous</span>
+            </button>
+
+            <div className="flex items-center gap-2">
+              <span className="text-xs text-slate-500 font-mono">
+                {currentIndex + 1} <span className="text-slate-700">of</span> {totalUseCases}
+              </span>
+              <div className="hidden sm:flex items-center gap-1">
+                {Array.from({ length: totalUseCases }).map((_, i) => (
+                  <div
+                    key={i}
+                    className={`w-1.5 h-1.5 rounded-full transition-all ${
+                      i === currentIndex
+                        ? 'bg-neon-cyan shadow-neon-cyan'
+                        : 'bg-slate-700'
+                    }`}
+                  />
+                ))}
+              </div>
+            </div>
+
+            <button
+              onClick={onNext}
+              disabled={!hasNext}
+              className={`flex items-center gap-1.5 px-2 sm:px-3 py-1.5 rounded-lg text-xs font-mono transition-all ${
+                hasNext
+                  ? 'text-slate-400 hover:text-neon-cyan hover:bg-neon-cyan/10'
+                  : 'text-slate-700 cursor-not-allowed'
+              }`}
+            >
+              <span className="hidden sm:inline">Next</span>
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
+
           <div className="p-4 sm:p-6">
             <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 sm:gap-0 mb-4">
               <div className="flex items-center gap-3 sm:gap-4">

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Shield, ArrowRight, Lock, Cpu, Database, ChevronRight, Zap } from 'lucide-react';
+import { Shield, ArrowRight, Lock, Cpu, Database, ChevronRight, ChevronDown, Zap } from 'lucide-react';
 import { QuantumTimeline } from './QuantumTimeline';
 
 export const LandingPage = ({ onEnterDashboard }) => {
@@ -36,6 +36,20 @@ export const LandingPage = ({ onEnterDashboard }) => {
             <p className="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed tracking-wide">
               <span className="text-neon-cyan">&gt;</span> A comprehensive guide to protecting AI and LLM systems against quantum computing threats
             </p>
+
+            {/* Hero CTA - immediately visible */}
+            <div className="mt-8 sm:mt-10">
+              <button
+                onClick={onEnterDashboard}
+                className="btn-neon group inline-flex items-center gap-3 px-8 py-4 font-display font-semibold uppercase tracking-widest text-sm border-2 border-neon-cyan text-neon-cyan bg-neon-cyan/5 hover:bg-neon-cyan/15 hover:shadow-neon-cyan-lg rounded-lg transition-all duration-300 hover:scale-[1.02]"
+              >
+                <span>Enter Dashboard</span>
+                <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-2" />
+              </button>
+              <p className="mt-4 text-xs text-slate-600 tracking-wide">
+                or scroll to learn more
+              </p>
+            </div>
           </div>
 
           {/* What is this section */}
@@ -91,6 +105,12 @@ export const LandingPage = ({ onEnterDashboard }) => {
               <span className="text-neon-red font-semibold">Quantum computers capable of breaking current encryption may arrive within the next decade.</span>{' '}
               The "harvest now, decrypt later" threat means data captured today could be exposed tomorrow.
             </p>
+          </div>
+
+          {/* Scroll indicator */}
+          <div className="flex flex-col items-center pt-8 pb-4">
+            <span className="text-xs text-slate-600 mb-2 tracking-wide">Explore the timeline</span>
+            <ChevronDown className="w-5 h-5 text-neon-cyan/60 animate-bounce" />
           </div>
         </div>
       </div>
