@@ -3,7 +3,7 @@ import { Shield, Menu, X } from 'lucide-react';
 import { Tooltip } from './ui';
 import { AlgorithmBadge } from './AlgorithmBadge';
 
-export const Header = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
+export const Header = ({ isMobileMenuOpen, setIsMobileMenuOpen, onLogoClick }) => {
   return (
     <header className="border-b border-slate-800/50 bg-gradient-to-b from-[#0f1629] to-[#0a0f1a]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
@@ -21,7 +21,10 @@ export const Header = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
             )}
           </button>
 
-          <div className="flex items-start gap-3 sm:gap-5 flex-1 min-w-0">
+          <button
+            onClick={onLogoClick}
+            className="flex items-start gap-3 sm:gap-5 flex-1 min-w-0 text-left hover:opacity-80 transition-opacity"
+          >
             <div className="p-3 sm:p-4 bg-gradient-to-br from-emerald-600/20 to-emerald-900/20 rounded-xl sm:rounded-2xl border border-emerald-500/20 flex-shrink-0">
               <Shield className="w-7 h-7 sm:w-10 sm:h-10 text-emerald-400" />
             </div>
@@ -33,7 +36,7 @@ export const Header = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
                 Practical implementation guide for securing LLMs, training pipelines, and probabilistic programs against quantum threats.
               </p>
             </div>
-          </div>
+          </button>
 
           <div className="hidden lg:flex items-center gap-3">
             <Tooltip content="NIST-standardized key encapsulation mechanism" position="bottom">
